@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form validation</title>
+</head>
+<body>
+    <h1>Js form validation</h1>
+    <form action="">
+        <label for="name">Username:</label>
+        <input type="text" name="username" id="username">
+        <br>
+        <br>
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password">
+        <br>
+        <br>
+        <input type="button" value="Submit" id="submit" onclick="validateForm()">
+        <br>
+        <br>
+        <p id="error"></p>
+
+    </form>
+        <script>
+            function validateForm() {
+                let username = document.getElementById('username').value;
+                let password = document.getElementById('password').value;
+                let error = document.getElementById("error");
+
+                if (username === '') {
+                    error.style.color="red";
+                    error.innerHTML = "Username can not be empty";
+                }
+                else if (password === '') {
+                    error.style.color="red";
+                    error.innerHTML = "Password can not be empty";
+                }
+                else if (password.length < 10) {
+                    error.style.color="red";
+                    error.innerHTML = "Password must be at least 10 characters long";
+                }
+                else if( password.indexOf(1) === -1 && password.indexOf(2) === -1 && password.indexOf(3) === -1 &&  password.indexOf(4) === -1 && password.indexOf(5) === -1 && password.indexOf(6) === -1 &&  password.indexOf(7) === -1 && password.indexOf(8) === -1 && password.indexOf(9) === -1 && password.indexOf(0) === -1 )
+                {
+                    error.style.color="red";
+                    error.innerHTML = "Password must contain at least one digit";
+                }
+                else {
+                    error.style.color="green";
+                    error.innerHTML = "Form submitted successfully";
+                }
+            }
+        </script>
+</body>
+</html>
