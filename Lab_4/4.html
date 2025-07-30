@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form 4</title>
+</head>
+<body>
+    <form method="post" action="dashboard.html" onsubmit="return dateValidate()">
+        <fieldset>
+            <legend>Date of Birth
+            </legend>
+            <pre>dd   mm   yyyy</pre>
+            <p><input type="text" name="dd" id="dd" style="width: 12px;">  / <input type="text" name="mm" id="mm" style="width: 12px;"> / <input type="text" name="yyyy" id="yyyy" style="width: 26px;"></p>
+            <p id="dateError"></p>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <script>
+        function dateValidate()
+        {
+            let dd=document.getElementById("dd").value;
+            let mm=document.getElementById("mm").value;
+            let yyyy=document.getElementById("yyyy").value;
+
+            let dateError=document.getElementById("dateError");
+            if(dd.length===0 || mm.length===0 || yyyy.length===0 )
+            {
+                dateError.innerHTML="Field can not be empty";
+            }
+            else if(dd>0 && dd<32 && mm>0 && mm<13 && yyyy>1899 && yyyy<2017)
+            {
+                dateError.innerHTML="";
+            }
+            else
+            {
+                dateError.innerHTML="Invalid DOB";
+            }
+            
+
+            if(dateError.innerHTML==="")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

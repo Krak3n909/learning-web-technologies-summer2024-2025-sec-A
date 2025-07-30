@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form 5</title>
+</head>
+<body>
+    <form action="dashboard.html" method="post" onsubmit="return degreeValidate()">
+        <fieldset>
+            <legend>Degree
+            </legend>
+            <input type="checkbox" name="degree" id="SSC"><label >SSC</label>
+            <input type="checkbox" name="degree" id="HSC"><label >HSC</label>
+            <input type="checkbox" name="degree" id="BSc"><label >BSc</label>
+        </fieldset>
+        <p id="degreeError"></p>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        function degreeValidate()
+        {
+            let ssc=document.getElementById("SSC");
+            let hsc=document.getElementById("HSC");
+            let bsc=document.getElementById("BSc");
+
+            let degreeError=document.getElementById("degreeError");
+
+            if(ssc.checked || hsc.checked || bsc.checked)
+            {
+                degreeError.innerHTML="";
+            }
+            else
+            {
+                degreeError.innerHTML="Please select at least one degree";
+            }
+
+            if(degreeError.innerHTML==="")
+            {
+                return true;
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form 3</title>
+</head>
+<body>
+    <form method="post" action="dashboard.html" onsubmit="return validate()">
+        <fieldset>
+            <legend>Gender
+            </legend>
+            <input type="radio" name="Gender" id="Male"><label >Male</label>
+            <input type="radio" name="Gender" id="Female"><label >Female</label>
+            <input type="radio" name="Gender" id="Other"><label >Other</label>
+        </fieldset>
+        <p id="gError"></p>
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        function validate()
+        {
+            let male=document.getElementById("Male");
+            let female=document.getElementById("Female");
+            let others=document.getElementById("Other");
+            let gError=document.getElementById("gError");
+            if(male.checked || others.checked || female.checked )
+            {
+                gError.innerHTML = "";
+            }
+            else
+            {
+                gError.innerHTML="Please select a gender.";
+            }
+            if(gError.innerHTML==="")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>

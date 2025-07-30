@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form 2</title>
+</head>
+<body>
+    <form action="dashboard.html" method="post" onsubmit="return validate()">
+        <label for="email">Email</label><br>
+        <input type="text" name="email" id="email">
+        <p id="mailError"></p>  
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function isLetter(ch) {
+            return (ch >= "a" && ch <= "z") || (ch >= "A" && ch <= "Z");
+        }
+        function isNumber(ch) {
+            return ch >= "0" && ch <= "9";
+        }
+        function isSpecialCharacter(ch) {
+            return ch === "." || ch === "-" || ch === "_";
+        }
+
+        function checkMail(string) {
+            let valid=false;
+
+            for(let i=0;i<string.length;i++)
+            {
+                if(string[i]==' ')
+                {
+                    valid=false;
+                    return valid;
+                }
+            }
+
+            for(let i=1;i<string.length;i++)
+            {
+                if(string[i]== '@' && i<string.length-2)
+                {
+                    
+                    {
+                        for(let j=i+2;j<string.length-1;j++)
+                        {
+                            if(string[j] == '.' )
+                            {
+                                valid=true;
+                                break;
+                            }
+                        }
+                        if(valid)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            if(!valid)
+            {
+                return false;
+            }
+            for(let i=0;i<string.length;i++)
+            {
+                if(isLetter(string[i]) || isNumber(string[i]) )
+                {
+                    continue;
+                }
+                else
+                {
+                    if(string[i] == '@')
+                    {
+                        break;
+                    }
+                    if(isSpecialCharacter(string[i]) && i>0 )
+                    {
+                        if(string[i] == '.' && string[i+1] == '.')
+                        {
+                            valid=false;
+                            return valid;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        valid=false;
+                        return valid;
+                    }
+                }
+            }
+            
+
+            return valid;
+        }
+
+        function validate() {
+            let mail=document.getElementById("email").value;
+            
+            let mailError=document.getElementById("mailError");
+
+            if(mail.length===0)
+            {
+                mailError.innerHTML="Mail can not be empty";
+            }
+            else if(!checkMail(mail))
+            {
+                mailError.innerHTML = "Invalid email";
+            }
+            else
+            {
+                mailError.innerHTML = "";
+            }
+            if(mailError.innerHTML==="")
+            {
+                return true;
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
