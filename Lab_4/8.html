@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<style>
+    td{
+        border: 1px solid;
+        padding: 10px;
+    }
+</style>
+<body>
+    <form action="dashboard.html" method="post" enctype="multipart/form-data" onsubmit="return formValidate()">
+    <table style="width: 100%;border-collapse: collapse;">
+        <tr>
+            <td colspan="5">
+                <h2 style="text-align: center;">PERSON PROFILE</h2>
+            </td>
+        </tr>
+        <tr>
+            <td >Name</td>
+            <td colspan="3"><input type="text" id="name"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td >Email</td>
+            <td colspan="3"><input type="text" id="email"></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td >Gender</td>
+            <td colspan="3">
+                <input type="radio" name="gender" id="Male" value="Male"> <label for="male">Male</label>
+                <input type="radio" name="gender" id="Female" value="Female"> <label for="female">Female</label>
+                <input type="radio" name="gender" id="Other" value="Other"> <label for="other">Other</label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td >Date of Birth</td>
+            <td colspan="3">
+                <input type="text" name="dd" id="dd" style="width:30px;"> /
+                <input type="text" name="mm" id="mm" style="width:30px;"> /
+                <input type="text" name="yyyy" id="yyyy" style="width:50px;">
+                <label for=""><i>(dd/mm/yyyy)</i></label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td >Blood Group</td>
+            <td colspan="3">
+                <select name="bg" id="bg">
+                    <option value="">Select a blood group</option>
+                    <option value="A+">A+</option>
+                    <option value="B+">B+</option>
+                    <option value="AB+">AB+</option>
+                    <option value="O+">O+</option>
+                    <option value="A-">A-</option>
+                    <option value="B-">B-</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O-">O-</option>
+                </select>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td >Degree</td>
+            <td colspan="3">
+                <input type="checkbox" name="degree" id="SSC" value="SSC"> <label for="ssc">SSC</label>
+                <input type="checkbox" name="degree" id="HSC" value="HSC"> <label for="hsc">HSC</label>
+                <input type="checkbox" name="degree" id="BSc" value="BSc."> <label for="bsc">BSc.</label>
+                <input type="checkbox" name="degree" id="MSc" value="MSc."> <label for="msc">MSc.</label>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td >Photo</td>
+            <td colspan="4">
+                <input type="file" name="image" id="img">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="height: 20px;"></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <input style="position: relative; left: 90%;" type="submit" value="Submit">
+                <input style="position: relative; left: 90%;" type="reset" value="Reset" onclick="reset()">
+            </td>
+        </tr>
+    </table>
+    </form>
+    <p id="nError"></p>
+    <p id="mailError"></p>
+    <p id="gError"></p>
+    <p id="dateError"></p>
+    <p id="degreeError"></p>
+    <p id="bgError"></p>
+    <p id="imgError"></p>
+
+    <script>
+        function isLetter(ch) {
+            return (ch >= "a" && ch <= "z") || (ch >= "A" && ch <= "Z");
+        }
+
+        function isFormatted(string) {
+            let formatted = true;
+            for (let i = 0; i < string.length; i++) {
+                if (
+                    isLetter(string[i]) ||
+                    string[i] === " " ||
+                    string[i] === "." ||
+                    string[i] === "-"
+                ) {
+                    continue;
+                }
+                formatted = false;
+                break;
+            }
+            return formatted;
+        }
+
+        function checkWord(string) {
+            if(string.length<2)
+            {
+                return false;
+            }
+            let val = false;
+            for (let i = 1; i < string.length; i++) {
+                if(string[i]===' ')
+                {
+                    if(i<string.length-1 && string[i+1] !== ' ')
+                    {
+                        val = true;
+                        break;
+                    }
+                }
+            }
+            return val;
+        }
+        function validateForm() {
+            let name = document.getElementById("name").value;
+
+            let nError = document.getElementById("nError");
+            if (name.length === 0) {
+                nError.innerHTML = "Name can not be empty";
+            } else if (!isLetter(name[0])) {
+                nError.innerHTML = "Name must start with a letter";
+            } else if (!isFormatted(name)) {
+                nError.innerHTML =
+                    "Name can contain only a-z or A-Z or dot(.) or dash(-)";
+            } else if (!checkWord(name)) {
+                nError.innerHTML = "Name must contain at least two words";
+            } else {
+                nError.innerHTML = "";
+            }
+            
+            if(nError.innerHTML==="")
+            {
+                return true;
+            }
+            return false;
+        }
+        function isLetter(ch) {
+            return (ch >= "a" && ch <= "z") || (ch >= "A" && ch <= "Z");
+        }
+        function isNumber(ch) {
+            return ch >= "0" && ch <= "9";
+        }
+        function isSpecialCharacter(ch) {
+            return ch === "." || ch === "-" || ch === "_";
+        }
+
+        function checkMail(string) {
+            let valid=false;
+
+            for(let i=0;i<string.length;i++)
+            {
+                if(string[i]==' ')
+                {
+                    valid=false;
+                    return valid;
+                }
+            }
+
+            for(let i=1;i<string.length;i++)
+            {
+                if(string[i]== '@' && i<string.length-2)
+                {
+                    
+                    {
+                        for(let j=i+2;j<string.length-1;j++)
+                        {
+                            if(string[j] == '.' )
+                            {
+                                valid=true;
+                                break;
+                            }
+                        }
+                        if(valid)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            if(!valid)
+            {
+                return false;
+            }
+            for(let i=0;i<string.length;i++)
+            {
+                if(isLetter(string[i]) || isNumber(string[i]) )
+                {
+                    continue;
+                }
+                else
+                {
+                    if(string[i] == '@')
+                    {
+                        break;
+                    }
+                    if(isSpecialCharacter(string[i]) && i>0 )
+                    {
+                        if(string[i] == '.' && string[i+1] == '.')
+                        {
+                            valid=false;
+                            return valid;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        valid=false;
+                        return valid;
+                    }
+                }
+            }
+            
+
+            return valid;
+        }
+
+        function mailValidate() {
+            let mail=document.getElementById("email").value;
+            
+            let mailError=document.getElementById("mailError");
+
+            if(mail.length===0)
+            {
+                mailError.innerHTML="Mail can not be empty";
+            }
+            else if(!checkMail(mail))
+            {
+                mailError.innerHTML = "Invalid email";
+            }
+            else
+            {
+                mailError.innerHTML = "";
+            }
+            if(mailError.innerHTML==="")
+            {
+                return true;
+            }
+            return false;
+        }
+        function genderValidate()
+        {
+            let male=document.getElementById("Male");
+            let female=document.getElementById("Female");
+            let others=document.getElementById("Other");
+            let gError=document.getElementById("gError");
+            if(male.checked || others.checked || female.checked )
+            {
+                gError.innerHTML = "";
+            }
+            else
+            {
+                gError.innerHTML="Please select a gender.";
+            }
+            if(gError.innerHTML==="")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        function dateValidate()
+        {
+            let dd=document.getElementById("dd").value;
+            let mm=document.getElementById("mm").value;
+            let yyyy=document.getElementById("yyyy").value;
+
+            let dateError=document.getElementById("dateError");
+            if(dd.length===0 || mm.length===0 || yyyy.length===0 )
+            {
+                dateError.innerHTML="Field can not be empty";
+            }
+            else if(dd>0 && dd<32 && mm>0 && mm<13 && yyyy>1899 && yyyy<2017)
+            {
+                dateError.innerHTML="";
+            }
+            else
+            {
+                dateError.innerHTML="Invalid DOB";
+            }
+            
+
+            if(dateError.innerHTML==="")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        function degreeValidate()
+        {
+            let ssc=document.getElementById("SSC");
+            let hsc=document.getElementById("HSC");
+            let bsc=document.getElementById("BSc");
+            let msc=document.getElementById("MSc");
+
+            let degreeError=document.getElementById("degreeError");
+
+            if(ssc.checked || hsc.checked || bsc.checked || msc.checked)
+            {
+                degreeError.innerHTML="";
+            }
+            else
+            {
+                degreeError.innerHTML="Please select at least one degree";
+            }
+
+            if(degreeError.innerHTML==="")
+            {
+                return true;
+            }
+            return false;
+        }
+        function validateBG()
+        {
+            let bg=document.getElementById("bg");
+            let bgError=document.getElementById("bgError");
+
+            if(bg.value==="")
+            {
+                bgError.innerHTML="Please select a blood group";
+            }
+            else
+            {
+                bgError.innerHTML="";
+            }
+
+            if(bgError.innerHTML==="")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        function validateImg()
+        {
+            let imgError=document.getElementById("imgError");
+            let img=document.getElementById("img");
+            if (!img.value) {
+                imgError.innerHTML = "Please upload a profile picture";
+            } else {
+                imgError.innerHTML = "";
+            }
+            if(imgError.innerHTML==="")
+            {
+                return true;
+            }
+            return false;
+        }
+        function formValidate()
+        {
+            if(!validateForm())
+            {
+                return false;
+            }
+            else if(!mailValidate())
+            {
+                return false;
+            }
+            else if(!genderValidate())
+            {
+                return false;
+            }
+            else if(!dateValidate())
+            {
+                return false;
+            }
+            else if(!degreeValidate())
+            {
+                return false;
+            }
+            else if(!validateBG())
+            {
+                return false;
+            }
+            else if(!validateImg())
+            {
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

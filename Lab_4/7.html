@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Form 7</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" action="dashboard.html" onsubmit="return validateImg()">
+        <fieldset>
+            <legend>Profile Picture
+            </legend>
+            <label >User Id</label>
+            <input type="text" name="id" id="uid">
+            <br>
+            <br>
+            <label for="">Picture</label>
+            <input type="file" name="image" id="img">
+            <p id="imgError"></p>
+            <hr>
+            <input type="submit" value="Submit">
+        </fieldset>
+
+    </form>
+
+    <script>
+        function validateImg()
+        {
+            let imgError=document.getElementById("imgError");
+            let uid=document.getElementById("uid");
+            let img=document.getElementById("img");
+            if(uid.value==="")
+            {
+                imgError.innerHTML="Please enter a user ID";
+            }
+            else if(uid.value<1)
+            {
+                imgError.innerHTML = "User Id must be a positive number";
+            }
+            else if (!img.value) {
+                imgError.innerHTML = "Please upload a profile picture";
+            } else {
+                imgError.innerHTML = "";
+            }
+            if(imgError.innerHTML==="")
+            {
+                return true;
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
