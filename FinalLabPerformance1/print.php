@@ -1,3 +1,3 @@
 <?php
-    echo $_GET[0];
+    print_r($_GET);
 ?>
